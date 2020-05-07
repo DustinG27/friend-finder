@@ -4,15 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beat Meet</title>
+    <!--Bootstrap-->
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
     />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--CSS style sheet-->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <!--font awesome glyphicons-->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <div class="text-center">
-        <img src="drawing-drums-drumset-5.png" id="logo">
+      <img src="drawing-drums-drumset-5.png" id="logo" />
     </div>
     <div class="container">
       <h2>Survey Questions</h2>
@@ -224,8 +234,8 @@
 
     <!--modal content-->
 
-  <div class="container">
-    <div class="bg-modal">
+    <div class="container">
+      <div class="bg-modal">
         <div class="modal-content">
           <div class="close">+</div>
           <img id="match-img" src="" alt="Your drummer match" />
@@ -233,7 +243,7 @@
           <h4 id="match-name"></h4>
         </div>
       </div>
-  </div>
+    </div>
 
     <!--jQuery Javascript-->
     <script>
@@ -251,7 +261,10 @@
 
       //click function for the submit button
       $("#submit-btn").on("click", function () {
+
         event.preventDefault();
+
+        console.log("submit press");
 
         // display modal
         $(".bg-modal").css("display", "flex");
@@ -263,20 +276,20 @@
         });
 
         // assign the survey data as key pairs and storing it into an array
-        let userData = {
-          name: $("#user-name").val().trim(),
-          photo: $("#user-photo").val().trim(),
+        var userData = {
+          name: $("#user-name").val(),
+          photo: $("#user-photo").val(),
           scores: [
-            $("#question1").val().trim(),
-            $("#question2").val().trim(),
-            $("#question3").val().trim(),
-            $("#question4").val().trim(),
-            $("#question5").val().trim(),
-            $("#question6").val().trim(),
-            $("#question7").val().trim(),
-            $("#question8").val().trim(),
-            $("#question9").val().trim(),
-            $("#question10").val().trim(),
+            $("#question1").val(),
+            $("#question2").val(),
+            $("#question3").val(),
+            $("#question4").val(),
+            $("#question5").val(),
+            $("#question6").val(),
+            $("#question7").val(),
+            $("#question8").val(),
+            $("#question9").val(),
+            $("#question10").val(),
           ],
         };
 

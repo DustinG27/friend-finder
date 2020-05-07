@@ -1,46 +1,49 @@
-const friendsData = require("../data/friends");
+var friendsData = require("../data/friends")
 
-module.exports = function (app) {
-  // GET route: grabs friends data and displays them in json
-  app.get("/api/friends", function (req, res) {
-    res.json(friendsData);
-  });
+module.exports = function(app) {
+    // Routes ////
 
-  // POST route: accepts new survey results and logic
-  app.post("/api/friends", function (req, res) {
-    var newFriend = req.body;
-    var newFriendScore = req.body.scores;
+    // GET route to '/api/friends' which displays a JSON of all possible friends.
+    app.get("/api/friends", function(req, res) {
+        res.json(friendsData);
+    });
 
-    var lastDiff = 41;
-    var friendNum = 0;
+    // POST route to /api/friends (This is used to handle incoming survey results and compatability logic)
+    app.post("/api/friends", function(req, res) {
 
-    // this loop goes over the entire friends array
-    for (var i = 0; i < friendsData.length; i++) {
-      var totalDiff = 0;
+        var newfriend = req.body;	
+        var newFriendScore = req.body.scores;
 
-      // this for loop is looking at the actual int in each object
-      for (var j = 0; i < newFriendScore.length; i++) {
-        if (newFriendScore[j] > friendsData[i].scores[j]) {
-          var diffScore = newFriendScore[j] - friendsData[i].scores[j];
-        } else if (newFriendScore[j] < friendsData[i].scores[j]) {
-          var diffScore = friendsData[i].scores[j] - newFriendScore[j];
+        var lastDiff = 41;
+        var friendNum = 0;
+       
+        for (var i = 0; i < friendsData.length; i++) {
+
+            var totalDiff = 0;
+
+            for (var j = 0; j < newFriendScore.length; j++) {
+                if (newFriendScore[j] > friendsData[i].scores[j]) {
+                    var diffScore = newFriendScore[j] - friendsData[i].scores[j];
+                } else if (newFriendScore[j] < friendsData[i].scores[j]) {
+                    var diffScore = friendsData[i].scores[j] - newFriendScore[j];
+                }
+                totalDiff += diffScore;
+            }
+            if (totalDiff < lastDiff) {
+                lastDiff = totalDiff;
+                friendNum = i;
+            }
         }
-        totalDiff += diffScore;
-      }
-      if (totalDiff < lastDiff) {
-        lastDiff = totalDiff;
-        friendNum = i;
-      }
-    }
 
-    console.log("Name: " + friendsData[friendNum].name);
-    console.log("Photo: " + friendsData[friendNum].photo);
-    console.log("Total Diff: " + lastDiff);
+        console.log("You're best matched gamer-friend is: " + friendsData[friendNum].name);
+        console.log("This is a link to their photo: " + friendsData[friendNum].photo)
+        console.log("The total difference is: " + lastDiff);
 
-    // push new friend data to new friend
-    friendsData.push(newFriend);
+        // Push newfriend to the friends array.	
+        friendsData.push(newfriend);
 
-    // sends the data back to be used client side
-    res.send(friendsData[friendNum]);
-  });
+        // THIS SENDS DATA BACK SO THAT IT CAN BE USED CLIENT SIDE...
+        res.send(friendsData[friendNum]);
+        
+    });
 };
