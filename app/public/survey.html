@@ -250,7 +250,7 @@
       // automatically scrolls to the top
       window.scrollTo(0, 0);
 
-      $(".close", "#match-name").on("click", function () {
+      $(".close").on("click", function () {
         $(".bg-modal").css("display", "none");
 
         $("html, body").css({
@@ -297,7 +297,7 @@
 
         // ajax post to api firends. passing data and getting it written to the correct place
         $.post("/api/friends", userData, function (data) {
-            
+
           console.log(data);
 
           $("#match-name").text(data.name);
